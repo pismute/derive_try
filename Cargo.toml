@@ -1,0 +1,22 @@
+[package]
+name = "derive-try"
+version = "0.1.0"
+edition = "2021"
+description = "Adds #[derive(Try, IdTry)] macros"
+authors = ["Changwoo Park <pismute@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/pismute/derive_try"
+readme = "readme.md"
+keywords = ["derive", "Try"]
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = "1.0"
+
+[dev-dependencies]
+num = "0.4.0"
+derive_more = "0.99.0"
