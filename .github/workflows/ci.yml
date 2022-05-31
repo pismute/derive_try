@@ -1,0 +1,26 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test Rust ${{ matrix.toolchain }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      matrix:
+        toolchain: [nightly]
+        os: [ubuntu, macOS, windows]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          override: true
+
+      - name: Remove .lock file
+        run: rm Cargo.lock
+
+      - name: Test
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
