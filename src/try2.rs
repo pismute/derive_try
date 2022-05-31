@@ -48,7 +48,7 @@ fn quote_id_try(ident: &Ident, field_type: &Type, generics: &Generics) -> TokenS
 pub(crate) fn id_try_derive(ast: DeriveInput) -> Result<TokenStream, Error> {
     let data = get_data_struct(&ast)?;
 
-    let field = get_field(&data)?;
+    let field = get_field(data)?;
 
     Ok(quote_id_try(&ast.ident, &field.ty, &ast.generics))
 }
@@ -94,7 +94,7 @@ fn quote_try(ident: &Ident, field_type: &Type, generics: &Generics) -> TokenStre
 pub(crate) fn try_derive(ast: DeriveInput) -> Result<TokenStream, Error> {
     let data = get_data_struct(&ast)?;
 
-    let field = get_field(&data)?;
+    let field = get_field(data)?;
 
     let token_stream = quote_try(&ast.ident, &field.ty, &ast.generics);
 
