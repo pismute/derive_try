@@ -1,5 +1,9 @@
 # `derive_try`
 
+[![Build Status](https://github.com/pismute/derive_try/workflows/CI/badge.svg)](https://github.com/pismute/derive_try/actions)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/pismute/derive_try/master/LICENSE)
+[![Rust Nightly](https://img.shields.io/badge/rust-nightly-red.svg)](https://rust-lang.github.io/rfcs/3058-try-trait-v2.html)
+
 This library is derive macros for [`Try` trait version 2](https://rust-lang.github.io/rfcs/3058-try-trait-v2.html). `Try` trait version 2 experimental in nightly version. You need a nightly compiler.
 
 It has two macros for newtypes:
