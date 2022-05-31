@@ -12,13 +12,8 @@ pub(crate) fn get_data_struct(input: &DeriveInput) -> Result<&DataStruct, Error>
 
 pub(crate) fn get_field(data: &DataStruct) -> Result<&Field, Error> {
     match &data.fields {
-        Fields::Named(field) => {
-            if field.named.iter().count() > 1 {
-                Err(Error::TooManyField)
-            } else {
-                field.named.first().ok_or(Error::FieldNotFound)
-            }
-        }
+        Fields::Unit => Err(Error::FieldNotFound),
+        Fields::Named(_) => Err(Error::UnsupportedNamedStruct),
         Fields::Unnamed(field) => {
             if field.unnamed.iter().count() > 1 {
                 Err(Error::TooManyField)
@@ -26,6 +21,5 @@ pub(crate) fn get_field(data: &DataStruct) -> Result<&Field, Error> {
                 field.unnamed.first().ok_or(Error::FieldNotFound)
             }
         }
-        Fields::Unit => Err(Error::FieldNotFound),
     }
 }

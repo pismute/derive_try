@@ -5,6 +5,7 @@ pub(crate) enum Error {
     NotForUnion,
     FieldNotFound,
     TooManyField,
+    UnsupportedNamedStruct,
 }
 
 impl ToString for Error {
@@ -14,6 +15,7 @@ impl ToString for Error {
             Error::NotForUnion => "Unions are not supported".to_string(),
             Error::FieldNotFound => "At least one field is required".to_string(),
             Error::TooManyField => "too many fields, must be single field".to_string(),
+            Error::UnsupportedNamedStruct => "Named structs are not supported".to_string(),
         }
     }
 }
