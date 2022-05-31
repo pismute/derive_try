@@ -4,17 +4,6 @@ use derive_more::Display;
 use derive_try::{IdTry, Try};
 use std::{fmt, ops};
 
-#[derive(Debug, IdTry, Display)]
-struct StringCalcF(String);
-
-impl ops::Add for StringCalcF {
-    type Output = Self;
-
-    fn add(self, rhs: Self) -> Self {
-        <StringCalc as Calculator<String>>::plus(self, rhs)
-    }
-}
-
 trait LiftTry<Input>: Sized {
     type Output;
     type F: ops::Try<Output = Self::Output>;
@@ -24,6 +13,17 @@ trait LiftTry<Input>: Sized {
 
 trait Calculator<A>: LiftTry<A> {
     fn plus(lhs: Self::F, rhs: Self::F) -> Self::F;
+}
+
+#[derive(Debug, IdTry, Display)]
+struct StringCalcF(String);
+
+impl ops::Add for StringCalcF {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self {
+        <StringCalc as Calculator<String>>::plus(self, rhs)
+    }
 }
 
 struct StringCalc;
@@ -46,12 +46,23 @@ impl<A: fmt::Display> Calculator<A> for StringCalc {
 #[derive(Debug, Try)]
 struct CalcF<T>(Result<T, CalcError>);
 
-struct Calc;
-
 #[derive(Debug)]
 enum CalcError {
     Overflow,
 }
+
+impl<A> ops::Add for CalcF<A>
+where
+    A: num::CheckedAdd<Output = A>,
+{
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        <Calc as Calculator<A>>::plus(self, rhs)
+    }
+}
+
+struct Calc;
 
 impl<A> LiftTry<A> for Calc {
     type Output = A;
@@ -70,17 +81,6 @@ where
         let l = lhs?;
         let r = rhs?;
         CalcF(l.checked_add(&r).ok_or(CalcError::Overflow))
-    }
-}
-
-impl<A> ops::Add for CalcF<A>
-where
-    A: num::CheckedAdd<Output = A>,
-{
-    type Output = Self;
-
-    fn add(self, rhs: Self) -> Self::Output {
-        <Calc as Calculator<A>>::plus(self, rhs)
     }
 }
 
