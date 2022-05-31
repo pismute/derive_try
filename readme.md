@@ -4,7 +4,7 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/pismute/derive_try/master/LICENSE)
 [![Rust Nightly](https://img.shields.io/badge/rust-nightly-red.svg)](https://rust-lang.github.io/rfcs/3058-try-trait-v2.html)
 
-This library is derive macros for [`Try` trait version 2](https://rust-lang.github.io/rfcs/3058-try-trait-v2.html). `Try` trait version 2 experimental in nightly version. You need a nightly compiler.
+This library is derive macros for [`Try` trait version 2](https://rust-lang.github.io/rfcs/3058-try-trait-v2.html). `Try` trait version 2 is experimental in nightly version. You need a nightly compiler.
 
 It has two macros for newtypes:
 
@@ -47,13 +47,9 @@ I made hand-made and macro-generated versions:
 - [Try](examples/monadic_try.rs)
 - [Try with macros](examples/monadic_try_macro.rs)
 
-## Tagless final
+## Docs
 
-Rust does not support Higher-Kinded type and functional structures like Monad. But, =Try= trait can help control abstraction.
+I made these macros to use `Try` trait on Tagless Final encoding in Rust. I created some docs:
 
-These macros are created to be used for Tagless final encoding, you can see some examples:
-
-- [Tagless final calculator](examples/tagless_final_calculator.rs)
-- [Tagless final calculator with macros](examples/tagless_final_caclualtor_macro.rs)
-
-If you are not used to tagless final encoding, it might not be intuitive. please visit [Introduction to Tagless Final](https://serokell.io/blog/introduction-tagless-final).
+- [Monadic Try](https://github.com/pismute/blog/blob/master/rust/20210515_monadic-try.org)
+- [Tagless Final in Rust](https://github.com/pismute/blog/blob/master/rust/20210529_tagless-final.org)
