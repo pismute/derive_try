@@ -70,22 +70,23 @@ jobs:
         with:
           command: test
 
+  # https://dev.to/lkurzyniec/github-auto-merge-dependabot-prs-26dj
   dependabot:
     runs-on: ubuntu-latest
     needs: [build]
     permissions:
       actions: read
       checks: read
-      contents: read
+      contents: write
       deployments: read
-      issues: read
+      issues: write
       packages: read
       pages: read
       pull-requests: write
       repository-projects: read
       security-events: read
       statuses: read
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     steps:
       - name: Dependabot metadata
         id: metadata
