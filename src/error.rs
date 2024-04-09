@@ -1,5 +1,3 @@
-use std::string::ToString;
-
 pub(crate) enum Error {
     NotForEnum,
     NotForUnion,
@@ -8,14 +6,14 @@ pub(crate) enum Error {
     UnsupportedNamedStruct,
 }
 
-impl ToString for Error {
-    fn to_string(&self) -> String {
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Error::NotForEnum => "Enums are not supported".to_string(),
-            Error::NotForUnion => "Unions are not supported".to_string(),
-            Error::FieldNotFound => "At least one field is required".to_string(),
-            Error::TooManyField => "too many fields, must be single field".to_string(),
-            Error::UnsupportedNamedStruct => "Named structs are not supported".to_string(),
+            Error::NotForEnum => write!(f, "Enums are not supported"),
+            Error::NotForUnion => write!(f, "Unions are not supported"),
+            Error::FieldNotFound => write!(f, "At least one field is required"),
+            Error::TooManyField => write!(f, "too many fields, must be single field"),
+            Error::UnsupportedNamedStruct => write!(f, "Named structs are not supported"),
         }
     }
 }
